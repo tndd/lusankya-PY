@@ -1,4 +1,4 @@
-CREATE TABLE dataflow.api_snapshot (
+CREATE TABLE IF NOT EXISTS dataflow.api_snapshot (
 	id serial4 NOT NULL,
 	time_stamp timestamptz NOT NULL DEFAULT now(),
 	api_schedule_id int4 NOT NULL,

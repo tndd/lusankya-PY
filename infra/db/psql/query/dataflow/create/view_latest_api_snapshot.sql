@@ -1,3 +1,4 @@
+DROP VIEW IF EXISTS dataflow.latest_api_snapshots;
 CREATE VIEW dataflow.latest_api_snapshots AS
 WITH max_timestamps_snapshot AS (
   SELECT api_schedule_id, MAX(time_stamp) AS max_timestamp
