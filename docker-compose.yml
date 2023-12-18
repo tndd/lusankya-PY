@@ -4,7 +4,7 @@ services:
   postgres:
     image: timescale/timescaledb:latest-pg12
     ports:
-      - "49514:5432"
+      - "50000:5432"
     volumes:
       - lusankya_postgres:/var/lib/postgresql/data
     environment:
@@ -12,5 +12,17 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=lusankya
 
+  postgres_test:
+    image: timescale/timescaledb:latest-pg12
+    ports:
+      - "60000:5432"
+    volumes:
+      - lusankya_postgres_test:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=lusankya_test
+
 volumes:
   lusankya_postgres:
+  lusankya_postgres_test:
