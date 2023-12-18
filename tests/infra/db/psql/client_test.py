@@ -19,5 +19,6 @@ def test_transact_execute():
 
 def test_parallel_execute():
     psql_cli = PsqlClient(url=os.getenv('PSQL_URL_TEST'))
-    queries = ['SELECT 1' for _ in range(10)]
+    queries = ['SELECT 1' for _ in range(100)]
     assert psql_cli.parallel_execute(queries) == None
+    assert psql_cli.parallel_execute(queries, n_max_worker=16) == None
