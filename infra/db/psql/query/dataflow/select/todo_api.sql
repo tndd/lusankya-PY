@@ -1,11 +1,11 @@
 WITH max_timestamps_snapshot AS (
   SELECT api_schedule_id, MAX(time_stamp) AS max_timestamp
-  FROM api_snapshot
+  FROM api_response
   GROUP BY api_schedule_id
 ),
 latest_snapshots AS (
   SELECT s.*
-  FROM api_snapshot s
+  FROM api_response s
   JOIN max_timestamps_snapshot mts
     ON s.api_schedule_id = mts.api_schedule_id
    AND s.time_stamp = mts.max_timestamp

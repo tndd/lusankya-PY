@@ -20,16 +20,16 @@ def queries_schema() -> List[str]:
 def queries_table() -> List[str]:
     # dataflow
     q_table_api_schedule = load_query(Schema.DATAFLOW, Command.CREATE, 'table_api_schedule')
-    q_table_api_snapshot = load_query(Schema.DATAFLOW, Command.CREATE, 'table_api_snapshot')
+    q_table_api_response = load_query(Schema.DATAFLOW, Command.CREATE, 'table_api_response')
     q_table_api_query_schedule = load_query(Schema.DATAFLOW, Command.CREATE, 'table_api_query_schedule')
     return [
         q_table_api_schedule,
-        q_table_api_snapshot,
+        q_table_api_response,
         q_table_api_query_schedule
     ]
 
 def queries_view() -> List[str]:
-    q_view_latest_api_snapshot = load_query(Schema.DATAFLOW, Command.CREATE, 'view_latest_api_snapshot')
+    q_view_latest_api_response = load_query(Schema.DATAFLOW, Command.CREATE, 'view_latest_api_response')
     return [
-        q_view_latest_api_snapshot,
+        q_view_latest_api_response,
     ]
