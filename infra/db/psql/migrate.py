@@ -5,13 +5,13 @@ from infra.db.psql.query.helper import Command, Schema, load_query
 
 
 def migrate(cli: PsqlClient):
-    q = [queries_schema() + queries_table() + queries_view()]
+    q = queries_schema() + queries_table() + queries_view()
     cli.transact_execute(q)
 
 
 def queries_schema() -> List[str]:
-    q_schema_dataflow = load_query(Schema.DATAFLOW, Command.CREATE, 'schema_alpaca')
     q_schema_alpaca = load_query(Schema.DATAFLOW, Command.CREATE, 'schema_dataflow')
+    q_schema_dataflow = load_query(Schema.ALPACA, Command.CREATE, 'schema_alpaca')
     return [
         q_schema_dataflow,
         q_schema_alpaca
