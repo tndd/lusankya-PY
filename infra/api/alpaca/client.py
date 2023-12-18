@@ -4,7 +4,7 @@ from enum import Enum
 import requests
 
 
-class Endpoint(str, Enum):
+class AlpacaEndpoint(str, Enum):
     ASSET = 'https://broker-api.sandbox.alpaca.markets/v1/assets'
     BAR = "https://data.alpaca.markets/v2/stocks/bars"
 
@@ -20,7 +20,7 @@ class ApiSnapshot:
 
 
 @dataclass
-class AlpacaApiClient:
+class ApiClient:
     key: str
     secret: str
 
