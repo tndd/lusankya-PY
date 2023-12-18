@@ -22,4 +22,4 @@ class AlpacaApiClient(ApiClient):
         }
 
     def get_as_alpaca(self, endpoint: AlpacaEndpoint, query: dict) -> ApiSnapshot:
-        return self.get(endpoint.value, query)
+        return self.get(endpoint.value, query, self.header_alpaca)
