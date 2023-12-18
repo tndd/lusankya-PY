@@ -10,8 +10,8 @@ class Endpoint(str, Enum):
 
 
 @dataclass
-class ApiResponse:
-    url: str
+class ApiSnapshot:
+    endpoint: str
     query: dict
     header: dict
     r_status: int
@@ -31,9 +31,9 @@ class AlpacaApiClient:
             "APCA-API-SECRET-KEY": self.secret
         }
 
-    def get(self, url: str, query: dict) -> ApiResponse:
+    def get(self, url: str, query: dict) -> ApiSnapshot:
         r = requests.get(url, params=query, headers=self.header)
-        return ApiResponse(
+        return ApiSnapshot(
             url,
             query,
             self.header,
