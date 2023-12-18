@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS dataflow.api_query_schedule;
