@@ -1,6 +1,5 @@
 import os
 
-import pytest
 from dotenv import load_dotenv
 
 from infra.db.psql.client import PsqlClient
