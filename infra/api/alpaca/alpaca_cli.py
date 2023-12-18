@@ -6,7 +6,7 @@ from infra.api.client import ApiClient, ApiSnapshot
 
 class AlpacaEndpoint(str, Enum):
     ASSET = 'https://broker-api.sandbox.alpaca.markets/v1/assets'
-    BAR = "https://data.alpaca.markets/v2/stocks/bars"
+    BAR = 'https://data.alpaca.markets/v2/stocks/bars'
 
 
 @dataclass
