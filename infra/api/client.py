@@ -19,25 +19,30 @@ class ApiSnapshot:
     r_body: str
 
 
-@dataclass
 class ApiClient:
+    def get(self, endpoint: str, query: dict, header: dict) -> ApiSnapshot:
+        r = requests.get(url=endpoint, params=query, headers=header)
+        return ApiSnapshot(
+            endpoint,
+            query,
+            header,
+            r.status_code,
+            dict(r.headers),
+            r.text
+        )
+
+
+@dataclass
+class AlpacaApiClient(ApiClient):
     key: str
     secret: str
 
     @property
-    def header(self):
+    def header_alpaca(self):
         return {
             "APCA-API-KEY-ID": self.key,
             "APCA-API-SECRET-KEY": self.secret
         }
 
-    def get(self, url: str, query: dict) -> ApiSnapshot:
-        r = requests.get(url, params=query, headers=self.header)
-        return ApiSnapshot(
-            url,
-            query,
-            self.header,
-            r.status_code,
-            dict(r.headers),
-            r.text
-        )
+    def get_as_alpaca(self, endpoint: AlpacaEndpoint, query: dict) -> ApiSnapshot:
+        return self.get(endpoint.value, query)
