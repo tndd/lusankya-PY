@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 
-
 @dataclass
 class ApiSchedule:
     id: int
