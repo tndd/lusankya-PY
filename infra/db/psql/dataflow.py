@@ -15,8 +15,8 @@ class ApiResponse:
     schedule_id: int
     timestamp: str
     status: int
-    header: str
-    body: str
+    header: dict
+    body: dict
 
 
 @dataclass
