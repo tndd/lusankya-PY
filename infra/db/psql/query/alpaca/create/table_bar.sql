@@ -12,4 +12,4 @@ CREATE TABLE IF NOT EXISTS alpaca.bar (
     PRIMARY KEY(time_stamp, time_frame, symbol)
 );
 
-SELECT create_hypertable('alpaca.bar', 'time_stamp');
+SELECT create_hypertable('alpaca.bar', 'time_stamp', if_not_exists => TRUE);
