@@ -1,4 +1,4 @@
-from infra.service.convert_api_response_body import convert_to_query_alpaca_bar
+from infra.service.convert_api_response_body.alpaca import convert_to_query_alpaca_bar
 
 
 def test_convert_to_query_alpaca_bar():
