@@ -19,7 +19,8 @@ def queries_table() -> List[str]:
     return [
         load_query(Schema.DATAFLOW, Command.CREATE, 'table_api_schedule'),
         load_query(Schema.DATAFLOW, Command.CREATE, 'table_api_response'),
-        load_query(Schema.DATAFLOW, Command.CREATE, 'table_api_query_schedule')
+        load_query(Schema.DATAFLOW, Command.CREATE, 'table_api_query_schedule'),
+        load_query(Schema.ALPACA, Command.CREATE, 'table_bar')
     ]
 
 def queries_view() -> List[str]:
