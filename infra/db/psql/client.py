@@ -7,10 +7,10 @@ from psycopg2 import connect, sql
 
 @dataclass
 class PsqlClient:
-    url: str
+    psql_url: str
 
     def transact_execute(self, queries: List[str]):
-        conn = connect(self.url)
+        conn = connect(self.psql_url)
         cur = conn.cursor()
         try:
             for query in queries:
