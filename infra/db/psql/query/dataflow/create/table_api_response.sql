@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS dataflow.api_response (
-	id serial4 NOT NULL,
+	id serial NOT NULL,
 	time_stamp timestamptz NOT NULL DEFAULT now(),
-	api_schedule_id int4 NOT NULL,
+	api_schedule_id uuid NOT NULL,
 	status int4 NOT NULL,
 	resp_header json NOT NULL,
 	body json NOT NULL,

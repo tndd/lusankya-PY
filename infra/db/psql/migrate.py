@@ -5,8 +5,14 @@ from infra.db.psql.query.helper import Command, Schema, load_query
 
 
 def migrate(cli: PsqlClient):
-    q = queries_schema() + queries_table() + queries_view()
+    q = queries_extension() + queries_schema() + queries_table()
     cli.transact_execute(q)
+
+
+def queries_extension() -> List[str]:
+    return [
+        load_query(Schema.DATAFLOW, Command.CREATE, 'extension_uuid')
+    ]
 
 
 def queries_schema() -> List[str]:
@@ -19,7 +25,7 @@ def queries_table() -> List[str]:
     return [
         load_query(Schema.DATAFLOW, Command.CREATE, 'table_api_schedule'),
         load_query(Schema.DATAFLOW, Command.CREATE, 'table_api_response'),
-        load_query(Schema.DATAFLOW, Command.CREATE, 'table_api_query_schedule'),
+        load_query(Schema.DATAFLOW, Command.CREATE, 'table_query_schedule'),
         load_query(Schema.ALPACA, Command.CREATE, 'table_bar')
     ]
 
