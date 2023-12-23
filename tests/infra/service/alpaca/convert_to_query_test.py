@@ -1,4 +1,4 @@
-from infra.service.convert_to_query import convert_body_to_query_alpaca_bar
+from infra.service.alpaca.convert_to_query import convert_body_to_query_alpaca_bar
 
 
 def test_convert_body_to_query_alpaca_bar():
