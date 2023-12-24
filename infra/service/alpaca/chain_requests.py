@@ -2,7 +2,7 @@ from infra.api.alpaca.bar import AlpacaBarClient, QueryBar
 from infra.api.client import ApiSnapshot
 
 
-def chain_request_bar(cli: AlpacaBarClient, query: QueryBar):
+def chain_requests_bar(cli: AlpacaBarClient, query: QueryBar):
     while True:
         snapshot: ApiSnapshot = cli.get_bar(query)
         # snapshotの結果をScheduleとResponseの両方に保存
