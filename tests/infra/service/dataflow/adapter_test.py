@@ -18,7 +18,7 @@ def test_snapshot_to_schedule():
         header=HEADER,
         r_status=200,
         r_header={},
-        r_body='body'
+        r_body={}
     )
     api_schedule: ApiSchedule = snapshot_to_schedule(snapshot)
     assert api_schedule.endpoint == ENDPOINT
@@ -33,7 +33,10 @@ def test_snapshot_to_response():
         'r_header_01': 'r_header_01_value',
         'r_header_02': 'r_header_02_value'
     }
-    BODY = 'BODY'
+    BODY = {
+        'body_01': 'body_01_value',
+        'body_02': 'body_02_value'
+    }
     snapshot = ApiSnapshot(
         endpoint=ENDPOINT,
         query={},
