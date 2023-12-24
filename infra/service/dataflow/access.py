@@ -1,19 +1,26 @@
-from .model import ApiSchedule
+from .model import ApiSchedule, ApiResponse
 from typing import List
 
 
-def regist_api_schedule_list(api_schedules: List[ApiSchedule]):
+def store_api_schedule(api_schedule: ApiSchedule):
     """
-    実行予定のAPIをリストで登録する
+    実行予定のAPIを登録する
     """
     pass
 
 
-def regist_api_schedule(api_schedule: ApiSchedule):
+def store_api_response(api_response: ApiResponse):
     """
-    実行予定のAPIを単発で登録する
+    API実行結果を登録する
     """
-    regist_api_schedule_list([api_schedule,])
+    pass
+
+
+def multi_store_api_schedules(api_schedules: List[ApiSchedule]):
+    """
+    実行予定のAPIを一括で登録する
+    """
+    pass
 
 
 def execute_scheduled_api(api_schedule_id: str):
@@ -24,16 +31,9 @@ def execute_scheduled_api(api_schedule_id: str):
     pass
 
 
-def execute_all_scheduled_api():
+def multi_execute_scheduled_api():
     """
     実行予定に登録されているAPIを全て実行する
-    """
-    pass
-
-
-def request_api(api_schedule: ApiSchedule):
-    """
-    渡されたAPI実行情報を即実行し、結果諸共DBへ登録する
     """
     pass
 
