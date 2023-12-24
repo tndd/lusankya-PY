@@ -42,9 +42,9 @@ def test_snapshot_to_response():
         r_header=R_HEADER,
         r_body=BODY
     )
-    api_schedule_id = '8ad823f6-0a9a-685a-0099-4495034aeb37'
-    api_response: ApiResponse = snapshot_to_response(snapshot, api_schedule_id)
-    assert api_response.api_schedule_id == api_schedule_id
+    SHCEDULE_ID = '8ad823f6-0a9a-685a-0099-4495034aeb37'
+    api_response: ApiResponse = snapshot_to_response(snapshot, SHCEDULE_ID)
+    assert api_response.api_schedule_id == SHCEDULE_ID
     assert api_response.status == R_STATUS
     assert api_response.header == R_HEADER
     assert api_response.body == BODY
