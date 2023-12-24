@@ -1,6 +1,6 @@
 import json
 
-def convert_body_to_query_alpaca_bar(body: dict, timeframe: str) -> str:
+def body_to_query_alpaca_bar(body: dict, timeframe: str) -> str:
     query =  f"""
         INSERT INTO alpaca_bar (time_stamp, time_frame, symbol, open, high, low, close, number_of_trades, volume, volume_weighted_average_price)
         SELECT 
