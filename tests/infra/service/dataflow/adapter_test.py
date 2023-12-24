@@ -2,7 +2,7 @@ from infra.service.dataflow.adapter import snapshot_to_schedule, snapshot_to_res
 from infra.service.dataflow.model import ApiSchedule, ApiResponse
 from infra.api.alpaca.cli import ApiSnapshot
 
-def test_snapshot_to_schedule_and_response():
+def test_snapshot_to_schedule():
     ENDPOINT = 'https://api.alpaca.markets/v2/assets'
     PARAMS = {
         'query_01': 'query_01_value',
