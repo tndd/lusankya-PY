@@ -1,6 +1,15 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 
 import requests
+
+
+@dataclass
+class ApiQuery:
+    def to_params(self) -> dict:
+        """
+        Noneを除いた自身の要素を辞書化する
+        """
+        return {k: v for k, v in asdict(self).items() if v is not None}
 
 
 @dataclass

@@ -4,11 +4,6 @@ from enum import Enum
 from infra.api.client import ApiClient, ApiSnapshot
 
 
-class AlpacaEndpoint(str, Enum):
-    ASSET = 'https://broker-api.sandbox.alpaca.markets/v1/assets'
-    BAR = 'https://data.alpaca.markets/v2/stocks/bars'
-
-
 @dataclass
 class AlpacaApiClient(ApiClient):
     key: str
@@ -21,5 +16,5 @@ class AlpacaApiClient(ApiClient):
             "APCA-API-SECRET-KEY": self.secret
         }
 
-    def get_as_alpaca(self, endpoint: AlpacaEndpoint, query: dict) -> ApiSnapshot:
-        return self.get(endpoint.value, query, self.header_alpaca)
+    def get_as_alpaca(self, endpoint: str, query: dict) -> ApiSnapshot:
+        return self.get(endpoint, query, self.header_alpaca)
