@@ -1,5 +1,6 @@
 from .model import ApiSchedule, ApiResponse
 from typing import List
+from infra.api.client import ApiSnapshot
 
 
 def store_api_schedule(api_schedule: ApiSchedule):
@@ -12,6 +13,13 @@ def store_api_schedule(api_schedule: ApiSchedule):
 def store_api_response(api_response: ApiResponse):
     """
     API実行結果を登録する
+    """
+    pass
+
+
+def store_api_snapshot(api_snapshot: ApiSnapshot):
+    """
+    APIのスナップショットからscheduleとResponseを同時登録する
     """
     pass
 
