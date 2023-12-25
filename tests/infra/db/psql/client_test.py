@@ -15,8 +15,8 @@ def test_generate_psql_client(psql_client):
 def test_execute(psql_client):
     """
     以下２点の要素を確認する。
-    1. 単発のクエリを実行出来ていること
-    2. クエリの結果が取得できていること
+        1. 単発のクエリを実行出来ていること
+        2. クエリの結果が取得できていること
     """
     assert psql_client.execute('SELECT 1') == [(1,)]
 
