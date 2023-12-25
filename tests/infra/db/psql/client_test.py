@@ -32,6 +32,7 @@ def test_parallel_execute():
     queries = ['SELECT 1' for _ in range(10)]
     assert psql_cli.parallel_execute(queries) == None
 
+
 def test_parallel_execute_change_worker_num():
     psql_cli = PsqlClient(
         url=os.getenv('PSQL_URL_TEST'),
@@ -39,6 +40,7 @@ def test_parallel_execute_change_worker_num():
     )
     queries = ['SELECT 1' for _ in range(32)]
     assert psql_cli.parallel_execute(queries) == None
+
 
 def test_parallel_executemany():
     psql_cli = PsqlClient(url=os.getenv('PSQL_URL_TEST'))
