@@ -27,8 +27,17 @@ class PsqlClient:
         return min(len(tasks), self.n_max_worker)
     
     def execute(self, query: str) -> Any:
+        """
+        単発のクエリを実行し、結果を取得する。
+        結果を返さないタイプのクエリの場合はNoneを返す。
+        """
         def _f(_cur, query):
             _cur.execute(query)
+            if _cur.description is not None:
+                # 結果を返すクエリの場合
+                return _cur.fetchall()
+            # 結果を返さないクエリの場合
+            return None
         return self.transact(_f, query)
 
     def execute_queries(self, queries: List[str]):

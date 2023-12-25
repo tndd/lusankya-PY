@@ -12,8 +12,13 @@ def test_generate_psql_client():
 
 
 def test_execute():
+    """
+    以下２点の要素を確認する。
+    1. 単発のクエリを実行出来ていること
+    2. クエリの結果が取得できていること
+    """
     psql_cli = PsqlClient(url=os.getenv('PSQL_URL_TEST'))
-    assert psql_cli.execute('SELECT 1') == None
+    assert psql_cli.execute('SELECT 1') == [(1,)]
 
 
 def test_execute_queries():
@@ -40,12 +45,15 @@ def test_parallel_executemany():
     table_name = 'usksxcdw'
     try:
         # テスト用の一時的なテーブルを作成
-        psql_cli.execute(f"CREATE TABLE {table_name} (column1 varchar(255), column2 varchar(255))")
+        psql_cli.execute(f"CREATE TABLE IF NOT EXISTS {table_name} (column1 varchar(255), column2 varchar(255))")
         # テスト用投入データを作成
         query = f"INSERT INTO {table_name} (column1, column2) VALUES (%s, %s)"
-        data = [(f"value1_{i}", f"value2_{i}") for i in range(1000)]
+        data = [(f"value1_{i}", f"value2_{i}") for i in range(10)]
         # executemanyの動作確認
         assert psql_cli.executemany(query, data) == None
+        # テーブルにデータが入っていることを確認
+        rows = psql_cli.execute(f'select * from {table_name}')
+        assert len(rows) == 10
     finally:
         # テスト用テーブルは必ず削除しておく
         psql_cli.execute(f"DROP TABLE IF EXISTS {table_name}")
