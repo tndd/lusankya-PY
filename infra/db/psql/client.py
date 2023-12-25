@@ -1,22 +1,16 @@
 from concurrent.futures import ProcessPoolExecutor
-from typing import List
+from typing import List, Tuple
 
 from psycopg2 import connect, sql
-from os import getenv
+from dataclasses import dataclass
 
+@dataclass
+class PsqlClient:
+    url: str
+    n_max_worker: int = 8
 
-def transact(f):
-    """
-    概要:
-        データベースへの接続およびトランザクション処理をラップするデコレータ。
-
-    Note:
-        このデコレータを適用した関数には、自動的に第一引数にcursorオブジェクトが渡される。
-        そのためデコレータ適用先の関数呼び出しの際、引数にはcursorオブジェクトを渡す必要はない。
-        適用先関数だけ見れば、どこから_curが発生したのか分からなくなるので注意。
-    """
-    def _wrapper(*args, **kwargs):
-        conn = connect(getenv('PSQL_URL'))
+    def transact(self, f, *args, **kwargs):
+        conn = connect(self.url)
         cur = conn.cursor()
         try:
             result = f(cur, *args, **kwargs)
@@ -28,33 +22,31 @@ def transact(f):
         finally:
             cur.close()
             conn.close()
-    return _wrapper
 
+    def calc_optimum_process_num(self, tasks: list) -> int:
+        return min(len(tasks), self.n_max_worker)
 
-@transact
-def execute_queries(_cur, queries: List[str]):
-    for query in queries:
-        _cur.execute(sql.SQL(query))
+    def execute_queries(self, queries: List[str]):
+        def _f(_cur, queries):
+            for query in queries:
+                _cur.execute(sql.SQL(query))
+        self.transact(_f, queries)
 
+    def execute_many(self, query: str, data: list):
+        def _f(_cur, query, data):
+            _cur.executemany(query, data)
+        self.transact(_f, query, data)
 
-@transact
-def execute_many(_cur, query: str, data: List[tuple]):
-    _cur.executemany(query, data)
+    def parallel_execute(self, queries: List[str]):
+        n_process = self.calc_optimum_process_num(queries)
+        with ProcessPoolExecutor(max_workers=n_process) as executor:
+            for i in range(n_process):
+                chunk = queries[i::n_process]
+                executor.submit(self.execute_queries, chunk)
 
-
-def parallel_execute(queries: List[str], n_max_worker: int = 8):
-    n_query = len(queries)
-    n_process = min(n_query, n_max_worker)
-    with ProcessPoolExecutor(max_workers=n_process) as executor:
-        for i in range(n_process):
-            chunk = queries[i::n_process]
-            executor.submit(execute_queries, chunk)
-
-
-def parallel_executemany(query: str, data: List(tuple), n_max_worker: int = 8):
-    n_data = len(data)
-    n_process = min(n_data, n_max_worker)
-    with ProcessPoolExecutor(max_workers=n_process) as executor:
-        for i in range(n_process):
-            chunk = data[i::n_process]
-            executor.submit(execute_many, chunk)
+    def parallel_executemany(self, query: str, data: list):
+        n_process = self.calc_optimum_process_num(data)
+        with ProcessPoolExecutor(max_workers=n_process) as executor:
+            for i in range(n_process):
+                chunk = data[i::n_process]
+                executor.submit(self.execute_many, query, chunk)
