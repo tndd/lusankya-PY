@@ -26,13 +26,13 @@ class PsqlClient:
     def calc_optimum_process_num(self, tasks: list) -> int:
         return min(len(tasks), self.n_max_worker)
 
-    def execute_queries(self, queries: List[str]):
+    def execute(self, queries: List[str]):
         def _f(_cur, queries):
             for query in queries:
                 _cur.execute(sql.SQL(query))
         self.transact(_f, queries)
 
-    def execute_many(self, query: str, data: list):
+    def executemany(self, query: str, data: list):
         def _f(_cur, query, data):
             _cur.executemany(query, data)
         self.transact(_f, query, data)
@@ -42,11 +42,11 @@ class PsqlClient:
         with ProcessPoolExecutor(max_workers=n_process) as executor:
             for i in range(n_process):
                 chunk = queries[i::n_process]
-                executor.submit(self.execute_queries, chunk)
+                executor.submit(self.execute, chunk)
 
     def parallel_executemany(self, query: str, data: list):
         n_process = self.calc_optimum_process_num(data)
         with ProcessPoolExecutor(max_workers=n_process) as executor:
             for i in range(n_process):
                 chunk = data[i::n_process]
-                executor.submit(self.execute_many, query, chunk)
+                executor.submit(self.executemany, query, chunk)
