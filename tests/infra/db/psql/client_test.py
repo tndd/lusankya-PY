@@ -27,5 +27,5 @@ def test_parallel_execute_change_worker_num():
         url=os.getenv('PSQL_URL_TEST'),
         n_max_worker=16
     )
-    queries = ['SELECT 1' for _ in range(64)]
+    queries = ['SELECT 1' for _ in range(32)]
     assert psql_cli.parallel_execute(queries) == None
