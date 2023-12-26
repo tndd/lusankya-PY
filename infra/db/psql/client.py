@@ -1,5 +1,5 @@
 from concurrent.futures import ProcessPoolExecutor
-from typing import List, Any
+from typing import List, Any, Tuple
 
 from psycopg2 import connect
 from dataclasses import dataclass
@@ -45,6 +45,16 @@ class PsqlClient:
             for query in queries:
                 _cur.execute(query)
         self.transact(_f, queries)
+
+    def execute_queries_with_params(self, queries_with_params: List[Tuple[str, tuple]]):
+        """
+        Note:
+            パラメータを渡す必要がないクエリの場合は空のタプル()を渡すようにすること。
+        """
+        def _f(_cur, queries_with_params):
+            for query, params in queries_with_params:
+                _cur.execute(query, params)
+        self.transact(_f, queries_with_params)
 
     def executemany(self, query: str, data: list):
         def _f(_cur, query, data):
