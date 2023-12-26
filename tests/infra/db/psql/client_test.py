@@ -40,7 +40,7 @@ def test_parallel_execute_change_worker_num():
     assert psql_cli.parallel_execute(queries) == None
 
 
-def test_parallel_executemany(psql_client):
+def test_executemany(psql_client):
     table_name = 'usksxcdw'
     try:
         # テスト用の一時的なテーブルを作成
