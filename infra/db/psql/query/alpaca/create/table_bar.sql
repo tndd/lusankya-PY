@@ -6,9 +6,9 @@ CREATE TABLE IF NOT EXISTS alpaca.bar (
     high DOUBLE PRECISION,
     low DOUBLE PRECISION,
     close DOUBLE PRECISION,
-    number_of_trades BIGINT,
+    trade_count BIGINT,
     volume BIGINT,
-    volume_weighted_average_price DOUBLE PRECISION,
+    vwap DOUBLE PRECISION,
     PRIMARY KEY(time_stamp, time_frame, symbol)
 );
 
