@@ -1,4 +1,5 @@
 from .model import ApiSchedule, ApiResponse
+from .adapter import snapshot_to_schedule, snapshot_to_response
 from typing import List
 from infra.api.client import ApiSnapshot
 
