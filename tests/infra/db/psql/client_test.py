@@ -56,3 +56,21 @@ def test_executemany(psql_client):
     finally:
         # テスト用テーブルは必ず削除しておく
         psql_client.execute(f"DROP TABLE IF EXISTS {table_name}")
+
+
+def test_parallel_executemany(psql_client):
+    table_name = 'crtdzgur'
+    try:
+        # テスト用の一時的なテーブルを作成
+        psql_client.execute(f"CREATE TABLE IF NOT EXISTS {table_name} (column1 varchar(255), column2 varchar(255))")
+        # テスト用投入データを作成
+        query = f"INSERT INTO {table_name} (column1, column2) VALUES (%s, %s)"
+        data = [(f"value1_{i}", f"value2_{i}") for i in range(10)]
+        # parallel_executemanyの動作確認
+        assert psql_client.parallel_executemany(query, data) == None
+        # テーブルにデータが入っていることを確認
+        rows = psql_client.execute(f'select * from {table_name}')
+        assert len(rows) == 10
+    finally:
+        # テスト用テーブルは必ず削除しておく
+        psql_client.execute(f"DROP TABLE IF EXISTS {table_name}")
