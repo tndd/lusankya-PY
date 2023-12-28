@@ -32,7 +32,7 @@ def multi_store_api_requests(api_requests: List[ApiRequest]):
     pass
 
 
-def execute_scheduled_api(api_request_id: str):
+def execute_api(api_request_id: str):
     """
     実行予定に登録されたAPIをID指定で実行する
     未実行または失敗しているものしか実行しないようにする
@@ -40,7 +40,7 @@ def execute_scheduled_api(api_request_id: str):
     pass
 
 
-def multi_execute_scheduled_api():
+def multi_execute_api():
     """
     実行予定に登録されているAPIを全て実行する
     """
