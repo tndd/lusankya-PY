@@ -1,5 +1,9 @@
-from infra.service.dataflow.adapter import snapshot_to_schedule, snapshot_to_response
-from infra.service.dataflow.model import ApiRequest, ApiResponse
+from infra.service.dataflow.api.adapter import (
+    snapshot_to_schedule,
+    snapshot_to_response,
+    snapshot_to_schedule_and_response
+)
+from infra.service.dataflow.api.model import ApiRequest, ApiResponse
 from infra.api.alpaca.cli import ApiSnapshot
 
 def test_snapshot_to_schedule():
@@ -52,3 +56,39 @@ def test_snapshot_to_response():
     assert api_response.header == R_HEADER
     assert api_response.body == BODY
 
+
+def test_snapshot_to_schedule_and_response():
+    ENDPOINT = 'https://api.alpaca.markets/v2/assets'
+    PARAMS = {
+        'query_01': 'query_01_value',
+        'query_02': 'query_02_value'
+    }
+    HEADER = {
+        'header_01': 'header_01_value',
+        'header_02': 'header_02_value'
+    }
+    R_STATUS = 200
+    R_HEADER = {
+        'r_header_01': 'r_header_01_value',
+        'r_header_02': 'r_header_02_value'
+    }
+    BODY = {
+        'body_01': 'body_01_value',
+        'body_02': 'body_02_value'
+    }
+    snapshot = ApiSnapshot(
+        endpoint=ENDPOINT,
+        query=PARAMS,
+        header=HEADER,
+        r_status=R_STATUS,
+        r_header=R_HEADER,
+        r_body=BODY
+    )
+    api_request, api_response = snapshot_to_schedule_and_response(snapshot)
+    assert api_request.endpoint == ENDPOINT
+    assert api_request.params == PARAMS
+    assert api_request.header == HEADER
+    assert api_response.api_request_id == api_request._id
+    assert api_response.status == R_STATUS
+    assert api_response.header == R_HEADER
+    assert api_response.body == BODY

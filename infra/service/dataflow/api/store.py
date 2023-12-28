@@ -30,25 +30,3 @@ def multi_store_api_requests(api_requests: List[ApiRequest]):
     実行予定のAPIを一括で登録する
     """
     pass
-
-
-def execute_api(api_request_id: str):
-    """
-    実行予定に登録されたAPIをID指定で実行する
-    未実行または失敗しているものしか実行しないようにする
-    """
-    pass
-
-
-def multi_execute_api():
-    """
-    実行予定に登録されているAPIを全て実行する
-    """
-    pass
-
-
-def fetch_successful_api_response_for_endpoint(endpoint: str):
-    """
-    特定エンドポイントの成功したAPIレスポンスを取得する
-    """
-    pass
