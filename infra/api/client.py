@@ -22,11 +22,11 @@ class ApiSnapshot:
 
 
 class ApiClient:
-    def get(self, endpoint: str, query: dict, header: dict) -> ApiSnapshot:
+    def get(self, endpoint: str, query: ApiQuery, header: dict) -> ApiSnapshot:
         r = requests.get(url=endpoint, params=query, headers=header)
         return ApiSnapshot(
             endpoint,
-            query,
+            query.to_params(),
             header,
             r.status_code,
             dict(r.headers),

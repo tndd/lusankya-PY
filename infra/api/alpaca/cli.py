@@ -1,7 +1,6 @@
 from dataclasses import dataclass
-from enum import Enum
 
-from infra.api.client import ApiClient, ApiSnapshot
+from infra.api.client import ApiClient, ApiSnapshot, ApiQuery
 
 
 @dataclass
@@ -16,5 +15,5 @@ class AlpacaApiClient(ApiClient):
             "APCA-API-SECRET-KEY": self.secret
         }
 
-    def get_as_alpaca(self, endpoint: str, query: dict) -> ApiSnapshot:
+    def get_as_alpaca(self, endpoint: str, query: ApiQuery) -> ApiSnapshot:
         return self.get(endpoint, query, self.header_alpaca)
