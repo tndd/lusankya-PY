@@ -52,10 +52,3 @@ def fetch_successful_api_response_for_endpoint(endpoint: str):
     特定エンドポイントの成功したAPIレスポンスを取得する
     """
     pass
-
-
-def execute_scheduled_queries():
-    """
-    実行予定に登録されているクエリを全て実行する
-    """
-    pass
