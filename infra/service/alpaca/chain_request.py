@@ -1,6 +1,6 @@
 from infra.api.alpaca.bar import AlpacaBarClient, QueryBar
 from infra.api.client import ApiSnapshot
-from infra.service.dataflow.access import store_api_snapshot
+from infra.service.dataflow.api.store import store_api_snapshot
 
 
 def chain_requests_bar(cli: AlpacaBarClient, query: QueryBar):
