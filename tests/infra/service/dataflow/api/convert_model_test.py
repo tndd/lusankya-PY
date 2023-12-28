@@ -1,10 +1,9 @@
-from infra.service.dataflow.api.adapter import (
-    snapshot_to_schedule,
-    snapshot_to_response,
-    snapshot_to_schedule_and_response
-)
+from infra.api.client import ApiSnapshot
+from infra.service.dataflow.api.convert_model import (
+    snapshot_to_response, snapshot_to_schedule,
+    snapshot_to_schedule_and_response)
 from infra.service.dataflow.api.model import ApiRequest, ApiResponse
-from infra.api.alpaca.cli import ApiSnapshot
+
 
 def test_snapshot_to_schedule():
     ENDPOINT = 'https://api.alpaca.markets/v2/assets'
