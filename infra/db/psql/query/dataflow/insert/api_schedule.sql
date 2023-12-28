@@ -1,3 +1,3 @@
-INSERT INTO dataflow.api_schedule
+INSERT INTO dataflow.api_request
 (endpoint, params, req_header)
 VALUES(%s, %s, %s);

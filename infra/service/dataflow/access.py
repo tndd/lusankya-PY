@@ -4,7 +4,7 @@ from typing import List
 from infra.api.client import ApiSnapshot
 
 
-def store_api_schedule(api_schedule: ApiSchedule):
+def store_api_request(api_request: ApiSchedule):
     """
     実行予定のAPIを登録する
     """
@@ -25,14 +25,14 @@ def store_api_snapshot(api_snapshot: ApiSnapshot):
     pass
 
 
-def multi_store_api_schedules(api_schedules: List[ApiSchedule]):
+def multi_store_api_requests(api_requests: List[ApiSchedule]):
     """
     実行予定のAPIを一括で登録する
     """
     pass
 
 
-def execute_scheduled_api(api_schedule_id: str):
+def execute_scheduled_api(api_request_id: str):
     """
     実行予定に登録されたAPIをID指定で実行する
     未実行または失敗しているものしか実行しないようにする

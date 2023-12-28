@@ -3,7 +3,7 @@ from uuid import uuid4
 
 
 @dataclass
-class ApiSchedule:
+class ApiRequest:
     endpoint: str
     params: dict
     header: dict
@@ -13,7 +13,7 @@ class ApiSchedule:
 
 @dataclass
 class ApiResponse:
-    api_schedule_id: str
+    api_request_id: str
     status: int
     header: dict
     body: dict
