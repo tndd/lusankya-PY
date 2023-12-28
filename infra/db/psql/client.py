@@ -25,7 +25,7 @@ class PsqlClient:
 
     def calc_optimum_process_num(self, tasks: list) -> int:
         return min(len(tasks), self.n_max_worker)
-    
+
     def execute(self, query: str) -> Any:
         """
         単発のクエリを実行し、結果を取得する。
