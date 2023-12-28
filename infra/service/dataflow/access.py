@@ -1,10 +1,10 @@
-from .model import ApiSchedule, ApiResponse
+from .model import ApiRequest, ApiResponse
 from .adapter import snapshot_to_schedule, snapshot_to_response
 from typing import List
 from infra.api.client import ApiSnapshot
 
 
-def store_api_request(api_request: ApiSchedule):
+def store_api_request(api_request: ApiRequest):
     """
     実行予定のAPIを登録する
     """
@@ -25,7 +25,7 @@ def store_api_snapshot(api_snapshot: ApiSnapshot):
     pass
 
 
-def multi_store_api_requests(api_requests: List[ApiSchedule]):
+def multi_store_api_requests(api_requests: List[ApiRequest]):
     """
     実行予定のAPIを一括で登録する
     """

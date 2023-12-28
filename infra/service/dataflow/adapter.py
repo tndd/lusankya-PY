@@ -1,10 +1,10 @@
 from infra.api.client import ApiSnapshot
-from .model import ApiSchedule, ApiResponse
+from .model import ApiRequest, ApiResponse
 from typing import Tuple
 
 
-def snapshot_to_schedule(snapshot: ApiSnapshot) -> ApiSchedule:
-    return ApiSchedule(
+def snapshot_to_schedule(snapshot: ApiSnapshot) -> ApiRequest:
+    return ApiRequest(
         endpoint=snapshot.endpoint,
         params=snapshot.query,
         header=snapshot.header
@@ -22,8 +22,8 @@ def snapshot_to_response(snapshot: ApiSnapshot, api_request_id: str) -> ApiRespo
 
 def snapshot_to_schedule_and_response(
         snapshot: ApiSnapshot
-    ) -> Tuple[ApiSchedule, ApiResponse]:
-    api_request = ApiSchedule(
+    ) -> Tuple[ApiRequest, ApiResponse]:
+    api_request = ApiRequest(
         endpoint=snapshot.endpoint,
         params=snapshot.query,
         header=snapshot.header

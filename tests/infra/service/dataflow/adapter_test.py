@@ -1,5 +1,5 @@
 from infra.service.dataflow.adapter import snapshot_to_schedule, snapshot_to_response
-from infra.service.dataflow.model import ApiSchedule, ApiResponse
+from infra.service.dataflow.model import ApiRequest, ApiResponse
 from infra.api.alpaca.cli import ApiSnapshot
 
 def test_snapshot_to_schedule():
@@ -20,7 +20,7 @@ def test_snapshot_to_schedule():
         r_header={},
         r_body={}
     )
-    api_request: ApiSchedule = snapshot_to_schedule(snapshot)
+    api_request: ApiRequest = snapshot_to_schedule(snapshot)
     assert api_request.endpoint == ENDPOINT
     assert api_request.params == PARAMS
     assert api_request.header == HEADER
