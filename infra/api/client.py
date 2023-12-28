@@ -3,7 +3,6 @@ from dataclasses import dataclass, asdict
 import requests
 
 
-@dataclass
 class ApiQuery:
     def to_params(self) -> dict:
         """
