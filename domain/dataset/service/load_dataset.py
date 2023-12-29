@@ -2,7 +2,7 @@ from domain.dataflow.api.repository.alpaca import AlpacaApiflowRepository
 from domain.dataset.repository import BarRepository
 
 
-def load_from_apiflow(
+def load_bar_dataset_from_apiflow(
     rp_bar: BarRepository,
     rp_alpaca_apiflow: AlpacaApiflowRepository,
 ):

@@ -4,21 +4,21 @@ from domain.dataset.value import Adjustment, AssetTag, TimeFrame
 from infra.api.alpaca.bar import QueryBar
 
 
-def update_dataset():
+def update_bar_dataset():
     """
     自身のDBに保存されているBarデータを最新のものに更新する
     """
     pass
 
 
-def update_dataset_of_asset_tag(tag: AssetTag):
+def update_bar_dataset_of_asset_tag(tag: AssetTag):
     """
     特定AssetTagのBarデータのみを最新のものに更新する
     """
     pass
 
 
-def update_dataset_of_symbol(
+def update_bar_dataset_of_symbol(
     rp_asset: AssetRepository,
     rp_alpaca_apiflow: AlpacaApiflowRepository,
     rp_bar: BarRepository,
