@@ -1,6 +1,8 @@
 from dataclasses import dataclass
+
+from infra.api.client import ApiQuery, ApiSnapshot
+
 from .cli import AlpacaApiClient
-from infra.api.client import ApiSnapshot, ApiQuery
 
 
 @dataclass
@@ -12,7 +14,7 @@ class QueryBar(ApiQuery):
     limit: int = 10000
     adjustment: str = 'raw'
     asof: str = None
-    feed: str = 'sip'
+    feed: str = 'iex'
     currency: str = None
     page_token: str = None
     sort: str = 'asc'
