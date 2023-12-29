@@ -1,13 +1,15 @@
 from concurrent.futures import ProcessPoolExecutor
-from typing import List, Any, Tuple
+from dataclasses import dataclass
+from typing import Any, List, Tuple
 
 from psycopg2 import connect
-from dataclasses import dataclass
+
 
 @dataclass
 class PsqlClient:
     url: str
     n_max_worker: int = 8
+
 
     def transact(self, f, *args, **kwargs):
         conn = connect(self.url)
@@ -23,8 +25,10 @@ class PsqlClient:
             cur.close()
             conn.close()
 
+
     def calc_optimum_process_num(self, tasks: list) -> int:
         return min(len(tasks), self.n_max_worker)
+
 
     def execute(self, query: str) -> Any:
         """
@@ -40,11 +44,13 @@ class PsqlClient:
             return None
         return self.transact(_f, query)
 
+
     def execute_queries(self, queries: List[str]):
         def _f(_cur, queries):
             for query in queries:
                 _cur.execute(query)
         self.transact(_f, queries)
+
 
     def execute_queries_with_params(self, queries_with_params: List[Tuple[str, tuple]]):
         """
@@ -56,10 +62,12 @@ class PsqlClient:
                 _cur.execute(query, params)
         self.transact(_f, queries_with_params)
 
+
     def executemany(self, query: str, data: list):
         def _f(_cur, query, data):
             _cur.executemany(query, data)
         self.transact(_f, query, data)
+
 
     def parallel_execute(self, queries: List[str]):
         n_process = self.calc_optimum_process_num(queries)
@@ -67,6 +75,7 @@ class PsqlClient:
             for i in range(n_process):
                 chunk = queries[i::n_process]
                 executor.submit(self.execute_queries, chunk)
+
 
     def parallel_executemany(self, query: str, data: list):
         n_process = self.calc_optimum_process_num(data)
