@@ -3,7 +3,7 @@ from infra.api.alpaca.bar import AlpacaBarClient, QueryBar
 from infra.api.client import ApiSnapshot
 
 
-class AlpacaDataflowRepository:
+class AlpacaApiflowRepository:
     api_cli_bar: AlpacaBarClient
     api_flow_repo: ApiFlowRepository
 
