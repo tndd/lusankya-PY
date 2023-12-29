@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from infra.db.psql.client import PsqlClient
+from infra.db.client import PsqlClient
 from tests.conftest import psql_client
 
 load_dotenv()

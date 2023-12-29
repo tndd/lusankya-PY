@@ -1,11 +1,10 @@
 from dataclasses import dataclass
 from typing import List
 
-from infra.api.client import ApiSnapshot
-from infra.db.psql.client import PsqlClient
+from infra.db.client import PsqlClient
 from infra.db.sql.helper import Command, Schema, load_query
 
-from .model import ApiRequest, ApiResponse
+from ..model import ApiRequest, ApiResponse
 
 
 @dataclass
@@ -27,9 +26,9 @@ class ApiFlowRepository:
         """
         pass
 
-    def store_api_snapshot(self, api_snapshot: ApiSnapshot):
+    def store_api_req_res(self, api_request: ApiRequest, api_response: ApiResponse):
         """
-        APIのスナップショットからscheduleとResponseを同時登録する
+        APIのRequestとResponseを同時登録する
         """
         pass
 
