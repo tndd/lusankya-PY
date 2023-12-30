@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from infra.api.client import ApiSnapshot
+from infra.api.interface import ApiSnapshot
 
 from . import ApiRequest, ApiResponse
 

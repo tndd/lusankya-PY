@@ -1,4 +1,4 @@
-from infra.api.client import ApiSnapshot
+from infra.api.interface import ApiSnapshot
 from infra.service.dataflow.api.convert_model import (
     snapshot_to_response, snapshot_to_schedule,
     snapshot_to_schedule_and_response)

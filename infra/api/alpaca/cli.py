@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
-from infra.api.client import ApiClient, ApiSnapshot, ApiQuery
+from infra.api.interface import ApiQuery, ApiSnapshot, rq_get
 
 
 @dataclass
-class AlpacaApiClient(ApiClient):
+class AlpacaApiClient():
     key: str
     secret: str
 
@@ -16,4 +16,4 @@ class AlpacaApiClient(ApiClient):
         }
 
     def get_as_alpaca(self, endpoint: str, query: ApiQuery) -> ApiSnapshot:
-        return self.get(endpoint, query, self.header_alpaca)
+        return rq_get(endpoint, query, self.header_alpaca)

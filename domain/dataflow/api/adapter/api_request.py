@@ -1,4 +1,4 @@
-from infra.api.client import ApiSnapshot
+from infra.api.interface import ApiSnapshot
 
 from ..model import ApiRequest
 
