@@ -55,7 +55,7 @@ class ApiFlowRepository:
     ### Fetch ###
     def fetch_successful_api_response_for_endpoint(self, endpoint: str) -> List[ApiResponse]:
         """
-        特定エンドポイントの成功したAPIレスポンスを取得する
+        特定エンドポイントの成功かつ未移動のAPIレスポンスを取得する
 
         これにより得られたレスポンス情報は、datasetドメインに移動されるべきである
         """
