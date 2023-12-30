@@ -24,12 +24,6 @@ class ApiFlowRepository:
         """
         pass
 
-    def store_api_req_res(self, api_request: ApiRequest, api_response: ApiResponse):
-        """
-        APIのRequestとResponseを同時登録する
-        """
-        pass
-
     def multi_store_api_requests(self, api_requests: List[ApiRequest]):
         """
         実行予定のAPIを一括で登録する
