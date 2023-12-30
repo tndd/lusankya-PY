@@ -53,8 +53,26 @@ class ApiFlowRepository:
         pass
 
     ### Fetch ###
-    def fetch_successful_api_response_for_endpoint(self, endpoint: str):
+    def fetch_successful_api_response_for_endpoint(self, endpoint: str) -> List[ApiResponse]:
         """
         特定エンドポイントの成功したAPIレスポンスを取得する
+
+        これにより得られたレスポンス情報は、datasetドメインに移動されるべきである
+        """
+        pass
+
+    def fetch_requests_not_executed_or_failed(self) -> List[ApiRequest]:
+        """
+        全ての未実行あるいは失敗したAPIリクエストのリストを取得する
+
+        これにより取得されるリクエスト情報は、いずれも実行されるべきものである
+        """
+        pass
+
+    def fetch_requests_not_executed_or_failed_of_endpoint(self, endpoint: str) -> List[ApiRequest]:
+        """
+        特定エンドポイントの未実行あるいは失敗したAPIリクエストのリストを取得する
+
+        これにより取得されるリクエスト情報は、いずれも実行されるべきものである
         """
         pass
