@@ -1,5 +1,6 @@
 from domain.dataflow.api.repository.alpaca import AlpacaApiflowRepository
 from domain.dataset.repository import AssetRepository, BarRepository
+from domain.dataset.service.load_dataset import load_bar_dataset_from_apiflow
 from domain.dataset.value import Adjustment, AssetTag, TimeFrame
 from infra.api.alpaca.bar import QueryBar
 
@@ -47,4 +48,4 @@ def update_bar_dataset_of_symbol(
     # Barデータの取得し、Apiflowにキャッシュする
     rp_alpaca_apiflow.store_chain_requests_bar(query)
     # 自身のBarテーブルにキャッシュデータを保存する
-    rp_bar.load_from_apiflow()
+    load_bar_dataset_from_apiflow(rp_bar, rp_alpaca_apiflow)

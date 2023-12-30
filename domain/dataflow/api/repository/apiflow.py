@@ -9,16 +9,14 @@ from ..model import ApiRequest, ApiResponse
 
 @dataclass
 class ApiFlowRepository:
-    cli: PsqlClient
+    cli_db: PsqlClient
 
     ### Store ###
     def store_api_request(self, api_request: ApiRequest):
         """
         実行予定のAPIを登録する
         """
-        q = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_request')
-        p = api_request.to_params()
-        self.cli.execute_queries_with_params(q, p)
+        self.multi_store_api_requests([api_request,])
 
     def store_api_response(self, api_response: ApiResponse):
         """
@@ -36,7 +34,9 @@ class ApiFlowRepository:
         """
         実行予定のAPIを一括で登録する
         """
-        pass
+        q = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_request')
+        params = [ar.to_params() for ar in api_requests]
+        self.cli_db.parallel_executemany(q, data=params)
 
     ### Execute ###
     def execute_api(self, api_request_id: str):
