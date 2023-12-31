@@ -4,7 +4,7 @@ from typing import List
 from infra.db.client import PsqlClient
 from infra.db.sql.helper import Command, Schema, load_query
 
-from ..model import ApiRequest, ApiResponse
+from ..model import ApiRequest, ApiResponse, ApiResult
 
 
 @dataclass
@@ -47,7 +47,7 @@ class ApiFlowRepository:
         pass
 
     ### Fetch ###
-    def fetch_successful_api_response_for_endpoint(self, endpoint: str) -> List[ApiResponse]:
+    def fetch_successful_api_response_for_endpoint(self, endpoint: str) -> List[ApiRequest]:
         """
         特定エンドポイントの成功かつ未移動のAPIレスポンスを取得する
 
