@@ -21,11 +21,11 @@ class ApiQuery:
         return {k: v for k, v in asdict(self).items() if v is not None}
 
 
-def rq_get(endpoint: str, query: ApiQuery, header: dict) -> ApiSnapshot:
-    r = requests.get(url=endpoint, params=query, headers=header)
+def rq_get(endpoint: str, params: dict, header: dict) -> ApiSnapshot:
+    r = requests.get(url=endpoint, params=params, headers=header)
     return ApiSnapshot(
         endpoint,
-        query.to_params(),
+        params,
         header,
         r.status_code,
         dict(r.headers),
