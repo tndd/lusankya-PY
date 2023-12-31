@@ -1,4 +1,4 @@
-from domain.dataflow.api.adapter.api_snapshot import \
+from domain.dataflow.api.adapter.api_result import \
     snapshot_to_request_and_response
 from domain.dataflow.api.model import ApiRequest, ApiResponse
 from domain.dataflow.api.repository import ApiFlowRepository
