@@ -4,7 +4,7 @@ from domain.dataflow.api.model import ApiRequest, ApiResponse, ApiResult
 from infra.api.interface import ApiSnapshot
 
 
-def snapshot_result(
+def result_from_snapshot(
         snapshot: ApiSnapshot
     ) -> ApiResult:
     return ApiResult(

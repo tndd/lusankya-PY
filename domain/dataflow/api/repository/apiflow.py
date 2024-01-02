@@ -20,7 +20,7 @@ class ApiFlowRepository:
 
     def store_api_response(self, api_response: ApiResponse):
         """
-        API実行結果を登録する
+        APIレスポンスを登録する
         """
         pass
 
@@ -31,6 +31,12 @@ class ApiFlowRepository:
         q = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_request')
         params = [ar.to_params() for ar in api_requests]
         self.cli_db.parallel_executemany(q, data=params)
+
+    def store_api_result(self, api_result: ApiResult):
+        """
+        API実行結果を登録する
+        """
+        pass
 
     ### Execute ###
     def execute_api(self, api_request_id: str):
@@ -47,7 +53,7 @@ class ApiFlowRepository:
         pass
 
     ### Fetch ###
-    def fetch_successful_api_response_for_endpoint(self, endpoint: str) -> List[ApiRequest]:
+    def fetch_successful_api_response_for_endpoint(self, endpoint: str) -> List[ApiResult]:
         """
         特定エンドポイントの成功かつ未移動のAPIレスポンスを取得する
 
