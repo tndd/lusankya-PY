@@ -1,10 +1,10 @@
-import os
+from os import getenv
 
 import pytest
 
-from infra.db.psql.client import PsqlClient
+from infra.db.client import PsqlClient
 
 
 @pytest.fixture
 def psql_client() -> PsqlClient:
-    return PsqlClient(url=os.getenv('PSQL_URL_TEST'))
+    return PsqlClient(url=getenv('PSQL_URL_TEST', 'NOT_EXIST_ENV'))

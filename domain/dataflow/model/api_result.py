@@ -10,6 +10,6 @@ class ApiResult:
     header: dict
     r_status: int
     r_header: dict
-    r_body: dict
-    _id: str = field(default_factory=uuid4)
+    r_body: str
+    _id: str = field(default_factory=lambda: str(uuid4()))
     time_stamp: str = field(default_factory=lambda: datetime.now().isoformat())

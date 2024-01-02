@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 from typing import List
 
+from domain.dataflow.adapter import (api_request_to_params,
+                                     api_response_to_params,
+                                     api_result_to_request_and_response)
+from domain.dataflow.model import ApiRequest, ApiResponse, ApiResult
 from infra.db.client import PsqlClient
 from infra.db.sql.helper import Command, Schema, load_query
-
-from domain.dataflow.model import ApiRequest, ApiResponse, ApiResult
-from domain.dataflow.adapter import result_to_request_and_response
 
 
 @dataclass
@@ -23,23 +24,24 @@ class ApiFlowRepository:
         """
         APIレスポンスを登録する
         """
-        q = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_response')
-        params =
-        self.cli_db.parallel_executemany(q, data=params)
+        query = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_response')
+        param = api_response_to_params(api_response)
+        self.cli_db.execute_with_params(query, param)
 
     def multi_store_api_requests(self, api_requests: List[ApiRequest]):
         """
         実行予定のAPIを一括で登録する
         """
-        q = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_request')
-        params = [ar.to_params() for ar in api_requests]
-        self.cli_db.parallel_executemany(q, data=params)
+        query = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_request')
+        params_list = [api_request_to_params(a_rq) for a_rq in api_requests]
+        self.cli_db.parallel_executemany(query, data=params_list)
 
     def store_api_result(self, api_result: ApiResult):
         """
         API実行結果を登録する
         """
-        pass
+        req, res = api_result_to_request_and_response(api_result)
+        self.cli_db.execute_with_params(query, param)
 
     ### Execute ###
     def execute_api(self, api_request_id: str):

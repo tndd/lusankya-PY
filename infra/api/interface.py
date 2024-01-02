@@ -1,4 +1,4 @@
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
 import requests
 
@@ -18,7 +18,7 @@ class ApiQuery:
         """
         Noneを除いた自身の要素を辞書化する
         """
-        return {k: v for k, v in asdict(self).items() if v is not None}
+        return {k: v for k, v in self.__dict__.items() if v is not None}
 
 
 def rq_get(endpoint: str, params: dict, header: dict) -> ApiSnapshot:

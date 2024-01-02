@@ -1,7 +1,7 @@
 from .api_request import (
     api_request_from_row,
     api_request_to_params,
-    api_request_to_row
+    api_request_from_snapshot
 )
 from .api_response import (
     api_response_from_rows,
