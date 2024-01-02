@@ -20,6 +20,7 @@ class ApiFlowRepository:
         """
         self.multi_store_api_requests([api_request,])
 
+
     def store_api_response(self, api_response: ApiResponse):
         """
         APIレスポンスを登録する
@@ -27,6 +28,7 @@ class ApiFlowRepository:
         query = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_response')
         param = api_response_to_params(api_response)
         self.cli_db.execute_with_params(query, param)
+
 
     def multi_store_api_requests(self, api_requests: List[ApiRequest]):
         """
@@ -36,14 +38,26 @@ class ApiFlowRepository:
         params_list = [api_request_to_params(a_rq) for a_rq in api_requests]
         self.cli_db.parallel_executemany(query, data=params_list)
 
+
     def store_api_result(self, api_result: ApiResult):
         """
         API実行結果を登録する
         """
+        # Api実行結果からリクエストとレスポンスを取り出す
         req, res = api_result_to_request_and_response(api_result)
-        query_req = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_response')
-        param_req = api_response_to_params(api_response)
-        self.cli_db.execute_with_params(query, param)
+        # リクエストとレスポンスを登録するためのクエリ作成
+        req_query = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_response')
+        req_param = api_request_to_params(req)
+        res_query = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_response')
+        res_param = api_response_to_params(res)
+        # トランザクション処理のためにクエリを纏める
+        queries_with_params = [
+            (req_query, req_param),
+            (res_query, res_param)
+        ]
+        # 保存
+        self.cli_db.execute_queries_with_params(queries_with_params)
+
 
     ### Execute ###
     def execute_api(self, api_request_id: str):
