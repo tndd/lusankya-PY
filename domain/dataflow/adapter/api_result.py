@@ -1,10 +1,10 @@
 from typing import Tuple
 
-from domain.dataflow.api.model import ApiRequest, ApiResponse, ApiResult
+from domain.dataflow.model import ApiRequest, ApiResponse, ApiResult
 from infra.api.interface import ApiSnapshot
 
 
-def result_from_snapshot(
+def api_result_from_snapshot(
         snapshot: ApiSnapshot
     ) -> ApiResult:
     return ApiResult(
@@ -17,7 +17,7 @@ def result_from_snapshot(
     )
 
 
-def result_to_request_and_response(
+def api_result_to_request_and_response(
         result: ApiRequest
     ) -> Tuple[ApiRequest, ApiResponse]:
     api_request = ApiRequest(

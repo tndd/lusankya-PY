@@ -4,7 +4,8 @@ from typing import List
 from infra.db.client import PsqlClient
 from infra.db.sql.helper import Command, Schema, load_query
 
-from ..model import ApiRequest, ApiResponse, ApiResult
+from domain.dataflow.model import ApiRequest, ApiResponse, ApiResult
+from domain.dataflow.adapter import result_to_request_and_response
 
 
 @dataclass
@@ -22,7 +23,9 @@ class ApiFlowRepository:
         """
         APIレスポンスを登録する
         """
-        pass
+        q = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_response')
+        params =
+        self.cli_db.parallel_executemany(q, data=params)
 
     def multi_store_api_requests(self, api_requests: List[ApiRequest]):
         """

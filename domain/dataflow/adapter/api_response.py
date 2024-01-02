@@ -1,4 +1,4 @@
-from domain.dataflow.api.model import ApiResponse
+from domain.dataflow.model import ApiResponse
 from infra.api.interface import ApiSnapshot
 
 
