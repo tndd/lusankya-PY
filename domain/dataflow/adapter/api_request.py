@@ -1,6 +1,5 @@
+from domain.dataflow.model import ApiRequest
 from infra.api.interface import ApiSnapshot
-
-from ..model import ApiRequest
 
 
 def api_request_to_params(api_request: ApiRequest) -> dict:

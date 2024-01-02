@@ -18,7 +18,7 @@ def api_result_from_snapshot(
 
 
 def api_result_to_request_and_response(
-        result: ApiRequest
+        result: ApiResult
     ) -> Tuple[ApiRequest, ApiResponse]:
     api_request = ApiRequest(
         endpoint=result.endpoint,

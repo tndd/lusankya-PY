@@ -41,6 +41,8 @@ class ApiFlowRepository:
         API実行結果を登録する
         """
         req, res = api_result_to_request_and_response(api_result)
+        query_req = load_query(Schema.DATAFLOW, Command.INSERT, 'table_api_response')
+        param_req = api_response_to_params(api_response)
         self.cli_db.execute_with_params(query, param)
 
     ### Execute ###
