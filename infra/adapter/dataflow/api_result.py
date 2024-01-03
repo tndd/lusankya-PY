@@ -1,7 +1,7 @@
 from typing import Tuple
 
 from domain.dataflow.model import ApiRequest, ApiResponse, ApiResult
-from infra.api.interface import ApiSnapshot
+from infra.api.model import ApiSnapshot
 
 
 def api_result_from_snapshot(

@@ -1,5 +1,5 @@
 from domain.dataflow.model import ApiResponse
-from infra.api.interface import ApiSnapshot
+from infra.api.model import ApiSnapshot
 
 
 def api_response_to_params(api_response: ApiResponse) -> dict:
