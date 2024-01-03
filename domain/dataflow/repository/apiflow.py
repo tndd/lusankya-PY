@@ -70,7 +70,7 @@ class ApiFlowRepository:
         """
         pass
 
-    def multi_execute_api(self, n_worker: int = 4):
+    def execute_api_not_executed_or_failed(self, n_worker: int = 4):
         """
         未実行または失敗しているAPIを実行する
         """
