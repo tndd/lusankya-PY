@@ -1,3 +1,4 @@
+from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass
 from typing import List
 
@@ -73,14 +74,20 @@ class ApiFlowRepository:
         """
         未実行または失敗しているAPIを実行する
         """
-        api_requests = self.fetch_requests_not_executed_or_failed()
-        for rq in api_requests:
+        # APIリクエストの実行と保存を行う並列処理のためのラッパー関数
+        def _execute_and_store(rq: ApiRequest):
             # API実行
             api_snapshot = rq_get(endpoint=rq.endpoint, params=rq.params, header=rq.header)
             # 実行結果をドメインモデルに変換
             api_response = api_response_from_snapshot(snapshot=api_snapshot, api_request_id=rq._id)
             # レスポンスを保存
             self.store_api_response(api_response)
+
+        # 未実行or失敗リクエストの取得
+        api_requests = self.fetch_requests_not_executed_or_failed()
+        # 並列処理でAPIを叩く。数を増やしすぎるとリクエスト数の上限を超えてエラーになるので注意。
+        with ProcessPoolExecutor(max_workers=n_worker) as executor:
+            executor.map(_execute_and_store, api_requests)
 
     ### Fetch ###
     def fetch_successful_api_response_for_endpoint(self, endpoint: str) -> List[ApiResult]:
