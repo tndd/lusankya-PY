@@ -6,7 +6,19 @@ from infra.api.model import ApiSnapshot
 
 
 def test_api_api_request_from_row():
-    pass
+    ROW = [
+        'id_value',
+        'time_stamp_value',
+        'endpoint_value',
+        'params_value',
+        'header_value'
+    ]
+    api_request: ApiRequest = api_request_from_row(ROW)
+    assert api_request._id == ROW[0]
+    assert api_request.time_stamp == ROW[1]
+    assert api_request.endpoint == ROW[2]
+    assert api_request.params == ROW[3]
+    assert api_request.header == ROW[4]
 
 
 def test_api_request_to_params():
