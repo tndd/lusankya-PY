@@ -1,5 +1,5 @@
-from domain.dataflow.adapter import api_response_from_snapshot
 from domain.dataflow.model import ApiRequest, ApiResponse
+from infra.adapter.dataflow import api_response_from_snapshot
 from infra.api.interface import rq_get
 
 

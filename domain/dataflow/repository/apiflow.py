@@ -2,14 +2,13 @@ from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass
 from typing import List
 
-from domain.dataflow.adapter import (api_request_to_params,
-                                     api_response_from_snapshot,
-                                     api_response_to_params,
-                                     api_result_to_request_and_response)
 from domain.dataflow.model import ApiRequest, ApiResponse, ApiResult
-from infra.api.interface import rq_get
+from infra.adapter.dataflow import (api_request_to_params,
+                                    api_response_to_params,
+                                    api_result_to_request_and_response)
 from infra.db.client import PsqlClient
 from infra.db.sql.helper import Command, Schema, load_query
+from infra.service.dataflow import request_api
 
 
 @dataclass
@@ -76,11 +75,7 @@ class ApiFlowRepository:
         """
         # APIリクエストの実行と保存を行う並列処理のためのラッパー関数
         def _execute_and_store(rq: ApiRequest):
-            # API実行
-            api_snapshot = rq_get(endpoint=rq.endpoint, params=rq.params, header=rq.header)
-            # 実行結果をドメインモデルに変換
-            api_response = api_response_from_snapshot(snapshot=api_snapshot, api_request_id=rq._id)
-            # レスポンスを保存
+            api_response = request_api(rq)
             self.store_api_response(api_response)
 
         # 未実行or失敗リクエストの取得
