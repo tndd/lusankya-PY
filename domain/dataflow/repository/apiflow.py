@@ -2,9 +2,11 @@ from dataclasses import dataclass
 from typing import List
 
 from domain.dataflow.adapter import (api_request_to_params,
+                                     api_response_from_snapshot,
                                      api_response_to_params,
                                      api_result_to_request_and_response)
 from domain.dataflow.model import ApiRequest, ApiResponse, ApiResult
+from infra.api.interface import rq_get
 from infra.db.client import PsqlClient
 from infra.db.sql.helper import Command, Schema, load_query
 
@@ -67,11 +69,18 @@ class ApiFlowRepository:
         """
         pass
 
-    def multi_execute_api(self):
+    def multi_execute_api(self, n_worker: int = 4):
         """
         未実行または失敗しているAPIを実行する
         """
-        pass
+        api_requests = self.fetch_requests_not_executed_or_failed()
+        for rq in api_requests:
+            # API実行
+            api_snapshot = rq_get(endpoint=rq.endpoint, params=rq.params, header=rq.header)
+            # 実行結果をドメインモデルに変換
+            api_response = api_response_from_snapshot(snapshot=api_snapshot, api_request_id=rq._id)
+            # レスポンスを保存
+            self.store_api_response(api_response)
 
     ### Fetch ###
     def fetch_successful_api_response_for_endpoint(self, endpoint: str) -> List[ApiResult]:
