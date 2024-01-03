@@ -7,7 +7,7 @@ from infra.adapter.dataflow import (api_request_to_params,
                                     api_response_to_params,
                                     api_result_to_request_and_response)
 from infra.db.client import PsqlClient
-from infra.db.sql.helper import Command, Schema, load_query
+from infra.db.sql.loader import Command, Schema, load_query
 from infra.service.dataflow import request_api
 
 
