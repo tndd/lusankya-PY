@@ -1,6 +1,23 @@
+from requests import get
+
 from domain.dataflow.model import ApiRequest, ApiResponse
 from infra.adapter.dataflow import api_response_from_snapshot
-from infra.api.interface import rq_get
+from infra.api.model import ApiSnapshot
+
+
+def rq_get(endpoint: str, params: dict, header: dict) -> ApiSnapshot:
+    """
+    通常の形式のリクエスト
+    """
+    r = get(url=endpoint, params=params, headers=header)
+    return ApiSnapshot(
+        endpoint,
+        params,
+        header,
+        r.status_code,
+        dict(r.headers),
+        r.text
+    )
 
 
 def request_api(req: ApiRequest) -> ApiResponse:

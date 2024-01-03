@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
-from infra.api.interface import ApiSnapshot, rq_get
+from infra.api.model import ApiSnapshot
+from infra.api.service import rq_get
 
 
 @dataclass

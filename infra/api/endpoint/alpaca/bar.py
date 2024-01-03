@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from infra.api.interface import ApiQuery, ApiSnapshot
+from infra.api.model import ApiQuery, ApiSnapshot
 
 from .cli import AlpacaApiClient
 
