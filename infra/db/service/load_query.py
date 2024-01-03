@@ -17,8 +17,10 @@ class Command(str, Enum):
 
 
 def load_query(schema: Schema, command: Command, name: str) -> str:
+    QUERY_DIR = "sql"
     current_dir = dirname(abspath(__file__))
+    infra_dir = dirname(current_dir)
 
-    with open(f'{current_dir}/{schema.value}/{command.value}/{name}.sql', 'r') as file:
+    with open(f'{infra_dir}/{QUERY_DIR}/{schema.value}/{command.value}/{name}.sql', 'r') as file:
         query = file.read()
     return query
