@@ -2,8 +2,8 @@ import json
 
 from domain.dataflow.repository.apiflow import ApiFlowRepository
 from infra.adapter.dataflow import api_result_from_snapshot
-from infra.api.alpaca.bar import AlpacaBarClient, QueryBar
-from infra.api.interface import ApiSnapshot
+from infra.api.endpoint.alpaca.bar import AlpacaBarClient, QueryBar
+from infra.api.model import ApiSnapshot
 
 
 def store_chain_requests_bar(
