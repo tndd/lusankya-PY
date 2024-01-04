@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 
 from infra.db.client import PsqlClient
-from infra.db.migrate import (migrate, queries_extension, queries_schema,
+from infra.db.service.migrate import (migrate, queries_extension, queries_schema,
                               queries_table, queries_view)
 from tests.conftest import psql_client
 
